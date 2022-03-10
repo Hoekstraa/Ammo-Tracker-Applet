@@ -48,7 +48,7 @@ function reload(){
 	if (remainingAmmo < 0)
 	{
 		var diff = Math.abs(remainingAmmo)
-		ammoInMag.value = parseInt(maxAmmo.value, 10) - diff
+		ammoInMag.value = parseInt(ammoInMag.value, 10) + parseInt(maxAmmo.value, 10) - diff
 		totalAmmo.value = 0
 	}
 	else
