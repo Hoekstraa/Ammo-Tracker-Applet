@@ -31,8 +31,13 @@ function shoot(){
 		return
 	}
 
-	ammoInMag.value = BigInt(ammoInMag.value, 10) - 1
+	ammoInMag.value = BigInt(ammoInMag.value, 10) - BigInt(1)
 	saveData()
+}
+
+function abs(bigint)
+{
+	return bigint < BigInt(0) ? -bigint : bigint;
 }
 
 function reload(){
@@ -47,7 +52,7 @@ function reload(){
 
 	if (remainingAmmo < 0)
 	{
-		var diff = Math.abs(remainingAmmo)
+		var diff = abs(remainingAmmo)
 		ammoInMag.value = BigInt(ammoInMag.value, 10) + BigInt(maxAmmo.value, 10) - diff
 		totalAmmo.value = 0
 	}
@@ -68,3 +73,4 @@ function reset(){
 }
 
 loadData()
+
