@@ -42,16 +42,20 @@ function reload(){
 		return
 	}
 
-	if(parseInt(totalAmmo.value, 10) < parseInt(maxammo.value, 10))
-	{
-		ammoInMag.value = totalAmmo.value
-		totalAmmo.value = 0
-		return
-	}
 	var removedFromTotal = parseInt(maxAmmo.value, 10) - parseInt(ammoInMag.value, 10)
-	console.log(removedFromTotal)
-	ammoInMag.value = maxAmmo.value
-	totalAmmo.value = parseInt(totalAmmo.value, 10) - removedFromTotal
+	var remainingAmmo = parseInt(totalAmmo.value, 10) - removedFromTotal
+
+	if (remainingAmmo < 0)
+	{
+		var diff = Math.abs(remainingAmmo)
+		ammoInMag.value = parseInt(maxAmmo.value, 10) - diff
+		totalAmmo.value = 0
+	}
+	else
+	{
+		ammoInMag.value = maxAmmo.value
+		totalAmmo.value = remainingAmmo
+	}
 
 	saveData()
 }
