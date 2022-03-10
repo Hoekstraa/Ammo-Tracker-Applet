@@ -37,13 +37,13 @@
 		<h4>Ammo Tracker</h4>
 		<p></p>
 
-		<input type="number" min="0" value="1" id="addammo" />
+		<input type="number" min="0" value="1" step="1" id="addammo" />
 		<input type="button" value="Add ammo"  onclick="addAmmo()" />
 		<br /><br /><br />
 
-		<p>Total ammo </p> <input type="number" value="0" id="totalammo" disabled /> <br />
-		<p>Max ammo in mag</p> <input type="number" min="0" value="0" id="maxammo" onchange="saveData()" /><br />
-		<p>Ammo in mag</p> <input type="number" value="0" id="ammoinmag" disabled />
+		<p>Total ammo </p> <input type="number" value="0" step="1" id="totalammo" disabled /> <br />
+		<p>Max ammo in mag</p> <input type="number" min="0" value="0" step="1" id="maxammo" onchange="saveData()" /><br />
+		<p>Ammo in mag</p> <input type="number" value="0" step="1" id="ammoinmag" disabled />
 
 		<input type="button" value="Shoot"  onclick="shoot()"  id="shootbutton" />
 		<input type="button" value="Reload" onclick="reload()" id="reloadbutton"/> </br>
