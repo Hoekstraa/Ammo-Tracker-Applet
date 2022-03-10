@@ -20,35 +20,35 @@ function loadData(){
 
 
 function addAmmo(){
-	totalAmmo.value = parseInt(totalAmmo.value, 10) + parseInt(addAmmoInput.value, 10)
+	totalAmmo.value = BigInt(totalAmmo.value, 10) + BigInt(addAmmoInput.value, 10)
 	saveData()
 }
 
 function shoot(){
-	if(parseInt(ammoInMag.value, 10)< 1)
+	if(BigInt(ammoInMag.value, 10)< 1)
 	{
 		window.alert("Mag is empty! Couldn't shoot!")
 		return
 	}
 
-	ammoInMag.value = parseInt(ammoInMag.value, 10) - 1
+	ammoInMag.value = BigInt(ammoInMag.value, 10) - 1
 	saveData()
 }
 
 function reload(){
-	if(parseInt(totalAmmo.value, 10) < 1)
+	if(BigInt(totalAmmo.value, 10) < 1)
 	{
 		window.alert("No ammo! Wasn't able to reload!")
 		return
 	}
 
-	var removedFromTotal = parseInt(maxAmmo.value, 10) - parseInt(ammoInMag.value, 10)
-	var remainingAmmo = parseInt(totalAmmo.value, 10) - removedFromTotal
+	var removedFromTotal = BigInt(maxAmmo.value, 10) - BigInt(ammoInMag.value, 10)
+	var remainingAmmo = BigInt(totalAmmo.value, 10) - removedFromTotal
 
 	if (remainingAmmo < 0)
 	{
 		var diff = Math.abs(remainingAmmo)
-		ammoInMag.value = parseInt(ammoInMag.value, 10) + parseInt(maxAmmo.value, 10) - diff
+		ammoInMag.value = BigInt(ammoInMag.value, 10) + BigInt(maxAmmo.value, 10) - diff
 		totalAmmo.value = 0
 	}
 	else
