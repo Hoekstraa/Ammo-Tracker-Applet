@@ -39,6 +39,11 @@ function abs(bigint)
 {
 	return bigint < BigInt(0) ? -bigint : bigint;
 }
+function min(a, b)
+{	
+	if (a > b) return b
+	return a
+}
 
 function reload(){
 	if(BigInt(totalAmmo.value, 10) < 1)
@@ -46,21 +51,12 @@ function reload(){
 		window.alert("No ammo! Wasn't able to reload!")
 		return
 	}
-
-	var removedFromTotal = BigInt(maxAmmo.value, 10) - BigInt(ammoInMag.value, 10)
-	var remainingAmmo = BigInt(totalAmmo.value, 10) - removedFromTotal
-
-	if (remainingAmmo < 0)
-	{
-		var diff = abs(remainingAmmo)
-		ammoInMag.value = BigInt(ammoInMag.value, 10) + BigInt(maxAmmo.value, 10) - diff
-		totalAmmo.value = 0
-	}
-	else
-	{
-		ammoInMag.value = maxAmmo.value
-		totalAmmo.value = remainingAmmo
-	}
+	
+	const ammoMissing = BigInt(maxAmmo.value, 10) - BigInt(ammoInMag.value, 10)
+	const maxAmmoToBeInserted = min(ammoMissing, BigInt(totalAmmo.value,10))
+	
+	ammoInMag.value = BigInt(ammoInMag.value, 10) + maxAmmoToBeInserted
+	totalAmmo.value = BigInt(totalAmmo.value, 10) - maxAmmoToBeInserted
 
 	saveData()
 }
