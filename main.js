@@ -62,11 +62,13 @@ function reload(){
 }
 
 function reset(){
-	totalAmmo.value = 0
-	ammoInMag.value = 0
-	maxAmmo.value = 0
-	saveData()
+	if(confirm("This will reset everything to 0. Are you sure?"))
+	{
+		totalAmmo.value = 0
+		ammoInMag.value = 0
+		maxAmmo.value = 0
+		saveData()
+	}
 }
 
 loadData()
-
