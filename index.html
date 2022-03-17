@@ -33,23 +33,38 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
 	<div class="row">
-	  <div class="one-half column" style="margin-top: 25%">
-		<h4>Ammo Tracker</h4>
-		<p></p>
-
-		<input type="number" min="0" value="1" step="1" id="addammo" />
-		<input type="button" value="Add ammo"  onclick="addAmmo()" />
-		<br /><br /><br />
-
-		<p>Total ammo </p> <input type="number" value="0" step="1" id="totalammo" disabled /> <br />
-		<p>Max ammo in mag</p> <input type="number" min="0" value="0" step="1" id="maxammo" onchange="saveData()" /><br />
-		<p>Ammo in mag</p> <input type="number" value="0" step="1" id="ammoinmag" disabled />
-
-		<input type="button" value="Shoot"  onclick="shoot()"  id="shootbutton" />
-		<input type="button" value="Reload" onclick="reload()" id="reloadbutton"/> </br>
-		<input type="button" value="Reset"  onclick="reset()"  id="resetbutton"/>
+	  <div class="one-half column" style="margin-top: 5%">
+		<h4>Ammo</h4>
+		<p> Name of ammo type</p>
+		<input type="text" id="ammoTypeInput" />
+		<input type="button" value="Add ammotype" onclick="addAmmoType()" />
 
 	  </div>
+
+		<div class="one-half column" style="margin-top: 5%">
+		<h4>Guns</h4>
+
+		<p>Gun name</p>
+		<input type="text" id="gunNameInput" />
+
+		<p>Gun's ammo type</p>
+		<input type="text" id="gunAmmoTypeInput" />
+		<p>Max amount of ammo in gun (magazine)</p>
+		<input type="number" min="0" value="1" id="maxAmmoInput" />
+
+		<input type="button" value="Add Gun"  onclick="addGun()" />
+
+	  </div>
+	</div>
+  </div>
+
+  <div class="container">
+	<div class="row" id="Ammos">
+	</div>
+  </div>
+
+  <div class="container">
+	<div class="row" id="Guns">
 	</div>
   </div>
 
