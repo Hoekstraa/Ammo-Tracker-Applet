@@ -84,6 +84,11 @@ function addAmmoOfType(element){
 	render()
 }
 
+function removeItem(element){
+	localStorage.removeItem(element)
+	render()
+}
+
 function render() {
 	document.getElementById("Ammos").innerHTML = ``
 	document.getElementById("Guns").innerHTML = ``
@@ -93,8 +98,8 @@ function render() {
 		const key = keys[i]
 		const item = JSON.parse(localStorage.getItem(key))
 
-		console.log(key)
-		console.log(item);
+		//console.log(key)
+		//console.log(item);
 
 		if(item.type == "Ammo")
 		{
@@ -108,7 +113,7 @@ function render() {
 		<p>Ammo to add</p> <input type="number" value="0" class="ammoToAdd"/>
 
 		<input type="button" value="Add" onclick="addAmmoOfType('${item.name}')" />
-		<input type="button" value="Remove Ammotype"  onclick="removeAmmotype('${item.name}')" />
+		<input type="button" value="Remove Ammotype"  onclick="removeItem('${item.name}')" />
 	  </div>
 
 `
@@ -128,7 +133,7 @@ function render() {
 
 		<input type="button" value="Shoot" onclick="shootGun('${item.name}')" />
 		<input type="button" value="Reload" onclick="reloadGun('${item.name}')" />
-		<input type="button" value="Remove Ammotype"  onclick="removeAmmotype('${item.name}')" />
+		<input type="button" value="Remove Gun"  onclick="removeItem('${item.name}')" />
 	  </div>
 
 `
