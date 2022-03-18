@@ -1,6 +1,5 @@
 "use strict"
 
-
 function AmmoType(name)
 {
 	this.type = "Ammo"
@@ -17,21 +16,48 @@ function Gun(name, ammoType, magSize)
 	this.ammoInMag = 0
 }
 
-//let Ammotypes = []
-//let Guns = []
-
 function addAmmoType() {
-	let ammoTypeInput = document.getElementById("ammoTypeInput").value
-	let ammoType = new AmmoType(ammoTypeInput)
+	const ammoTypeInput = document.getElementById("ammoTypeInput").value
+	const ammoType = new AmmoType(ammoTypeInput)
 	localStorage.setItem(ammoTypeInput, JSON.stringify(ammoType))
 
 	render()
 }
 
+function doesAmmoTypeExist(ammoName){
+    const ammoType = JSON.parse(localStorage.getItem(ammoName))
+    
+    if (ammoType != null && ammoType.type != null && ammoType.type == "Ammo")
+        return true
+    return false
+}
+
+function gunsDependOn(ammoName){
+    const ammoType = JSON.parse(localStorage.getItem(ammoName))
+    if(ammoType.type != "Ammo") return false
+    const keys = Object.keys(localStorage)
+
+	for (const i in keys){
+	    const key = keys[i]
+	    const item = JSON.parse(localStorage.getItem(key))
+        if (item.type == "Gun" && item.ammoType == ammoName)
+            return true
+    }
+    return false
+}
+
+
 function addGun(){
-	let gunNameInput = document.getElementById("gunNameInput").value
-	let gunAmmoTypeInput = document.getElementById("gunAmmoTypeInput").value
-	let maxAmmoInput = document.getElementById("maxAmmoInput").value
+	const gunNameInput = document.getElementById("gunNameInput").value
+	const gunAmmoTypeInput = document.getElementById("gunAmmoTypeInput").value
+	const maxAmmoInput = document.getElementById("maxAmmoInput").value
+
+    if(!doesAmmoTypeExist(gunAmmoTypeInput))
+    {
+        window.alert("Ammo type doesn't exist. Make sure it matches an existing one!")
+        return
+    }
+
 	let gun = new Gun(gunNameInput, gunAmmoTypeInput, maxAmmoInput)
 	localStorage.setItem(gun.name, JSON.stringify(gun))
 
@@ -85,7 +111,10 @@ function addAmmoOfType(element){
 }
 
 function removeItem(element){
-	localStorage.removeItem(element)
+    if (!gunsDependOn(element))
+	    localStorage.removeItem(element)
+    else
+        window.alert("Ammo can't be removed, because there's guns that use that type still!")
 	render()
 }
 
@@ -93,7 +122,7 @@ function render() {
 	document.getElementById("Ammos").innerHTML = ``
 	document.getElementById("Guns").innerHTML = ``
 	const keys = Object.keys(localStorage)
-	console.log(keys)
+	//console.log(keys)
 	for (const i in keys){
 		const key = keys[i]
 		const item = JSON.parse(localStorage.getItem(key))
@@ -105,7 +134,7 @@ function render() {
 		{
 			const ammos = document.getElementById("Ammos")
 			ammos.innerHTML += `
-	  <div class="one-half column" style="margin-top: 5%" id="${item.name}">
+	  <div class="one-half column" style="margin:1%;" id="${item.name}">
 		<h4>${item.name}</h4>
 
 		<p>Total</p> <input type="number" value="${item.amount}" disabled class="totalAmmo"/>
@@ -115,7 +144,6 @@ function render() {
 		<input type="button" value="Add" onclick="addAmmoOfType('${item.name}')" />
 		<input type="button" value="Remove Ammotype"  onclick="removeItem('${item.name}')" />
 	  </div>
-
 `
 		}
 		else if(item.type == "Gun")
@@ -124,7 +152,7 @@ function render() {
 
 			const guns = document.getElementById("Guns")
 			guns.innerHTML += `
-	  <div class="one-half column" style="margin-top: 5%" id="${item.name}">
+	  <div class="one-half column" style="margin:1%;" id="${item.name}">
 		<h4>${item.name}</h4>
 
 		<p>Gun-compatible ammo left</p> <input type="number" value="${ammo.amount}" class="totalAmmo" disabled />
@@ -135,7 +163,6 @@ function render() {
 		<input type="button" value="Reload" onclick="reloadGun('${item.name}')" />
 		<input type="button" value="Remove Gun"  onclick="removeItem('${item.name}')" />
 	  </div>
-
 `
 		}
 	}
